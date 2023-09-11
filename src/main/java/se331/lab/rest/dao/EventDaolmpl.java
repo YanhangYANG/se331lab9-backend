@@ -28,7 +28,7 @@ public class EventDaolmpl implements EventDao {
                 .location("The Cathouse")
                 .date("2021-08-07")
                 .time("12:00")
-                .organizer("The Cathouse")
+
                 .petsAllowed(true)
                 .build());
         eventList.add(Event.builder()
@@ -39,7 +39,7 @@ public class EventDaolmpl implements EventDao {
                 .location("The Doghouse")
                 .date("2021-08-07")
                 .time("12:00")
-                .organizer("The Doghouse")
+
                 .petsAllowed(true)
                 .build());
         eventList.add(Event.builder()
@@ -50,7 +50,7 @@ public class EventDaolmpl implements EventDao {
                 .location("The Bunnery")
                 .date("2021-08-07")
                 .time("12:00")
-                .organizer("The Bunnery")
+
                 .petsAllowed(true)
                 .build());
         eventList.add(Event.builder()
@@ -61,7 +61,7 @@ public class EventDaolmpl implements EventDao {
                 .location("The Birdhouse")
                 .date("2021-08-07")
                 .time("12:00")
-                .organizer("The Birdhouse")
+
                 .petsAllowed(true)
                 .build());
         eventList.add(Event.builder()
@@ -72,7 +72,7 @@ public class EventDaolmpl implements EventDao {
                 .location("The Snakehouse")
                 .date("2021-08-07")
                 .time("12:00")
-                .organizer("The Snakehouse")
+
                 .petsAllowed(true)
                 .build());
         eventList.add(Event.builder()
@@ -83,7 +83,7 @@ public class EventDaolmpl implements EventDao {
                 .location("The Turtlehouse")
                 .date("2021-08-07")
                 .time("12:00")
-                .organizer("The Turtlehouse")
+
                 .petsAllowed(true)
                 .build());
         eventList.add(Event.builder()
@@ -94,7 +94,7 @@ public class EventDaolmpl implements EventDao {
                 .location("The Ferrethouse")
                 .date("2021-08-07")
                 .time("12:00")
-                .organizer("The Ferrethouse")
+
                 .petsAllowed(true)
                 .build());
         eventList.add(Event.builder()
@@ -105,7 +105,7 @@ public class EventDaolmpl implements EventDao {
                 .location("The Guinea Pighouse")
                 .date("2021-08-07")
                 .time("12:00")
-                .organizer("The Guinea Pighouse")
+
                 .petsAllowed(true)
                 .build());
         eventList.add(Event.builder()
@@ -116,7 +116,7 @@ public class EventDaolmpl implements EventDao {
                 .location("The Hamsterhouse")
                 .date("2021-08-07")
                 .time("12:00")
-                .organizer("The Hamsterhouse")
+
                 .petsAllowed(true)
                 .build());
         eventList.add(Event.builder()
@@ -127,7 +127,7 @@ public class EventDaolmpl implements EventDao {
                 .location("The Mousehouse")
                 .date("2021-08-07")
                 .time("12:00")
-                .organizer("The Mousehouse")
+
                 .petsAllowed(true)
                 .build());
         eventList.add(Event.builder()
@@ -138,7 +138,7 @@ public class EventDaolmpl implements EventDao {
                 .location("The Rathouse")
                 .date("2021-08-07")
                 .time("12:00")
-                .organizer("The Rathouse")
+
                 .petsAllowed(true)
                 .build());
     }
