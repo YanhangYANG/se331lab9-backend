@@ -7,10 +7,13 @@ import se331.lab.rest.entity.Event;
 import se331.lab.rest.entity.EventDTO;
 import se331.lab.rest.entity.EventOrganizerDTO;
 import se331.lab.rest.entity.Organizer;
+import se331.lab.rest.entity.OrganizerDTO;
+import se331.lab.rest.entity.OrganizerOwnEventsDTO;
+import se331.lab.rest.entity.Participant;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-09-11T23:23:59+0700",
+    date = "2023-09-12T00:28:19+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 18 (Oracle Corporation)"
 )
 public class LabMapperImpl implements LabMapper {
@@ -49,6 +52,35 @@ public class LabMapperImpl implements LabMapper {
         return list;
     }
 
+    @Override
+    public OrganizerDTO getOrganizerDto(Organizer organizer) {
+        if ( organizer == null ) {
+            return null;
+        }
+
+        OrganizerDTO.OrganizerDTOBuilder organizerDTO = OrganizerDTO.builder();
+
+        organizerDTO.id( organizer.getId() );
+        organizerDTO.name( organizer.getName() );
+        organizerDTO.ownEvents( eventListToOrganizerOwnEventsDTOList( organizer.getOwnEvents() ) );
+
+        return organizerDTO.build();
+    }
+
+    @Override
+    public List<OrganizerDTO> getOrganizerDto(List<Organizer> organizers) {
+        if ( organizers == null ) {
+            return null;
+        }
+
+        List<OrganizerDTO> list = new ArrayList<OrganizerDTO>( organizers.size() );
+        for ( Organizer organizer : organizers ) {
+            list.add( getOrganizerDto( organizer ) );
+        }
+
+        return list;
+    }
+
     protected EventOrganizerDTO organizerToEventOrganizerDTO(Organizer organizer) {
         if ( organizer == null ) {
             return null;
@@ -60,5 +92,40 @@ public class LabMapperImpl implements LabMapper {
         eventOrganizerDTO.name( organizer.getName() );
 
         return eventOrganizerDTO.build();
+    }
+
+    protected OrganizerOwnEventsDTO eventToOrganizerOwnEventsDTO(Event event) {
+        if ( event == null ) {
+            return null;
+        }
+
+        OrganizerOwnEventsDTO.OrganizerOwnEventsDTOBuilder organizerOwnEventsDTO = OrganizerOwnEventsDTO.builder();
+
+        organizerOwnEventsDTO.id( event.getId() );
+        organizerOwnEventsDTO.category( event.getCategory() );
+        organizerOwnEventsDTO.title( event.getTitle() );
+        organizerOwnEventsDTO.description( event.getDescription() );
+        organizerOwnEventsDTO.location( event.getLocation() );
+        organizerOwnEventsDTO.date( event.getDate() );
+        organizerOwnEventsDTO.time( event.getTime() );
+        List<Participant> list = event.getParticipants();
+        if ( list != null ) {
+            organizerOwnEventsDTO.participants( new ArrayList<Participant>( list ) );
+        }
+
+        return organizerOwnEventsDTO.build();
+    }
+
+    protected List<OrganizerOwnEventsDTO> eventListToOrganizerOwnEventsDTOList(List<Event> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<OrganizerOwnEventsDTO> list1 = new ArrayList<OrganizerOwnEventsDTO>( list.size() );
+        for ( Event event : list ) {
+            list1.add( eventToOrganizerOwnEventsDTO( event ) );
+        }
+
+        return list1;
     }
 }
