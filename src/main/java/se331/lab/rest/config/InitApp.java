@@ -9,9 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import se331.lab.rest.entity.Event;
 import se331.lab.rest.entity.Org;
 import se331.lab.rest.entity.Organizer;
+import se331.lab.rest.entity.Participant;
 import se331.lab.rest.repository.EventRepository;
 import se331.lab.rest.repository.OrgRepository;
 import se331.lab.rest.repository.OrganizerRepository;
+import se331.lab.rest.repository.ParticipantRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -22,9 +27,33 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
     final OrgRepository orgRepository;
     final OrganizerRepository organizerRepository;
+    final ParticipantRepository participantRepository;
     @Override
      @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
+        Participant p1,p2,p3,p4,p5;
+        p1=participantRepository.save(Participant.builder()
+                .name("Kan")
+                .telNo("0811111111")
+                .build());
+        p2=participantRepository.save(Participant.builder()
+                .name("Nan")
+                .telNo("0822222222")
+                .build());
+        p3=participantRepository.save(Participant.builder()
+                .name("Mint")
+                .telNo("0833333333")
+                .build());
+        p4=participantRepository.save(Participant.builder()
+                .name("Ploy")
+                .telNo("0844444444")
+                .build());
+        p5=participantRepository.save(Participant.builder()
+                .name("Ploy")
+                .telNo("0844444444")
+                .build());
+
+
                 Organizer org1,org2,org3;
                 org1=organizerRepository.save(Organizer.builder()
                         .name("CAMT").build());
@@ -43,7 +72,11 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                                 .petsAllowed(false)
                                 .build());
                tempEvent.setOrganizer(org1);
-               org1.getOwnEvents().add(tempEvent);
+               tempEvent.setParticipants(List.of(p1, p2, p3));
+        p1.getEventHistory().add(tempEvent);
+        p2.getEventHistory().add(tempEvent);
+        p3.getEventHistory().add(tempEvent);
+        org1.getOwnEvents().add(tempEvent);
                tempEvent = eventRepository.save(Event.builder()
                                 .category("Academic")
                                 .title("Commencement Day")
@@ -54,7 +87,12 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                                 .petsAllowed(false)
                                 .build());
                 tempEvent.setOrganizer(org1);
+                tempEvent.setParticipants(List.of( p2, p3, p4));
+                p2.getEventHistory().add(tempEvent);
+                p3.getEventHistory().add(tempEvent);
+                p4.getEventHistory().add(tempEvent);
                 org1.getOwnEvents().add(tempEvent);
+
                 tempEvent = eventRepository.save(Event.builder()
                                 .category("Cultural")
                                 .title("Loy Krathong")
@@ -65,6 +103,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                                 .petsAllowed(false)
                                 .build());
                 tempEvent.setOrganizer(org2);
+                tempEvent.setParticipants(List.of( p3, p4, p5));
+                p3.getEventHistory().add(tempEvent);
+                p4.getEventHistory().add(tempEvent);
+                p5.getEventHistory().add(tempEvent);
                 org2.getOwnEvents().add(tempEvent);
                 tempEvent = eventRepository.save(Event.builder()
                                 .category("Cultural")
@@ -76,6 +118,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                                 .petsAllowed(true)
                                 .build());
                 tempEvent.setOrganizer(org3);
+                tempEvent.setParticipants(List.of( p1, p2, p3));
+                p1.getEventHistory().add(tempEvent);
+                p2.getEventHistory().add(tempEvent);
+                p3.getEventHistory().add(tempEvent);
                 org3.getOwnEvents().add(tempEvent);
                 orgRepository.save(Org.builder()
                                 .name("CMU")

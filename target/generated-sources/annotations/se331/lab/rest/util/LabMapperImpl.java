@@ -6,14 +6,17 @@ import javax.annotation.processing.Generated;
 import se331.lab.rest.entity.Event;
 import se331.lab.rest.entity.EventDTO;
 import se331.lab.rest.entity.EventOrganizerDTO;
+import se331.lab.rest.entity.EventParticipantDTO;
 import se331.lab.rest.entity.Organizer;
 import se331.lab.rest.entity.OrganizerDTO;
 import se331.lab.rest.entity.OrganizerOwnEventsDTO;
 import se331.lab.rest.entity.Participant;
+import se331.lab.rest.entity.ParticipantDTO;
+import se331.lab.rest.entity.ParticipantOwnEventsDTO;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-09-12T00:28:19+0700",
+    date = "2023-09-12T11:21:50+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 18 (Oracle Corporation)"
 )
 public class LabMapperImpl implements LabMapper {
@@ -34,6 +37,7 @@ public class LabMapperImpl implements LabMapper {
         eventDTO.time( event.getTime() );
         eventDTO.petsAllowed( event.getPetsAllowed() );
         eventDTO.organizer( organizerToEventOrganizerDTO( event.getOrganizer() ) );
+        eventDTO.participants( participantListToEventParticipantDTOList( event.getParticipants() ) );
 
         return eventDTO.build();
     }
@@ -81,6 +85,36 @@ public class LabMapperImpl implements LabMapper {
         return list;
     }
 
+    @Override
+    public List<ParticipantDTO> getParticipantDto(List<Participant> participants) {
+        if ( participants == null ) {
+            return null;
+        }
+
+        List<ParticipantDTO> list = new ArrayList<ParticipantDTO>( participants.size() );
+        for ( Participant participant : participants ) {
+            list.add( getParticipantDto( participant ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public ParticipantDTO getParticipantDto(Participant participant) {
+        if ( participant == null ) {
+            return null;
+        }
+
+        ParticipantDTO.ParticipantDTOBuilder participantDTO = ParticipantDTO.builder();
+
+        participantDTO.id( participant.getId() );
+        participantDTO.name( participant.getName() );
+        participantDTO.telNo( participant.getTelNo() );
+        participantDTO.eventHistory( eventListToParticipantOwnEventsDTOList( participant.getEventHistory() ) );
+
+        return participantDTO.build();
+    }
+
     protected EventOrganizerDTO organizerToEventOrganizerDTO(Organizer organizer) {
         if ( organizer == null ) {
             return null;
@@ -92,6 +126,33 @@ public class LabMapperImpl implements LabMapper {
         eventOrganizerDTO.name( organizer.getName() );
 
         return eventOrganizerDTO.build();
+    }
+
+    protected EventParticipantDTO participantToEventParticipantDTO(Participant participant) {
+        if ( participant == null ) {
+            return null;
+        }
+
+        EventParticipantDTO.EventParticipantDTOBuilder eventParticipantDTO = EventParticipantDTO.builder();
+
+        eventParticipantDTO.id( participant.getId() );
+        eventParticipantDTO.name( participant.getName() );
+        eventParticipantDTO.telNo( participant.getTelNo() );
+
+        return eventParticipantDTO.build();
+    }
+
+    protected List<EventParticipantDTO> participantListToEventParticipantDTOList(List<Participant> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<EventParticipantDTO> list1 = new ArrayList<EventParticipantDTO>( list.size() );
+        for ( Participant participant : list ) {
+            list1.add( participantToEventParticipantDTO( participant ) );
+        }
+
+        return list1;
     }
 
     protected OrganizerOwnEventsDTO eventToOrganizerOwnEventsDTO(Event event) {
@@ -108,6 +169,7 @@ public class LabMapperImpl implements LabMapper {
         organizerOwnEventsDTO.location( event.getLocation() );
         organizerOwnEventsDTO.date( event.getDate() );
         organizerOwnEventsDTO.time( event.getTime() );
+        organizerOwnEventsDTO.petsAllowed( event.getPetsAllowed() );
         List<Participant> list = event.getParticipants();
         if ( list != null ) {
             organizerOwnEventsDTO.participants( new ArrayList<Participant>( list ) );
@@ -124,6 +186,37 @@ public class LabMapperImpl implements LabMapper {
         List<OrganizerOwnEventsDTO> list1 = new ArrayList<OrganizerOwnEventsDTO>( list.size() );
         for ( Event event : list ) {
             list1.add( eventToOrganizerOwnEventsDTO( event ) );
+        }
+
+        return list1;
+    }
+
+    protected ParticipantOwnEventsDTO eventToParticipantOwnEventsDTO(Event event) {
+        if ( event == null ) {
+            return null;
+        }
+
+        ParticipantOwnEventsDTO.ParticipantOwnEventsDTOBuilder participantOwnEventsDTO = ParticipantOwnEventsDTO.builder();
+
+        participantOwnEventsDTO.id( event.getId() );
+        participantOwnEventsDTO.category( event.getCategory() );
+        participantOwnEventsDTO.title( event.getTitle() );
+        participantOwnEventsDTO.description( event.getDescription() );
+        participantOwnEventsDTO.location( event.getLocation() );
+        participantOwnEventsDTO.date( event.getDate() );
+        participantOwnEventsDTO.time( event.getTime() );
+
+        return participantOwnEventsDTO.build();
+    }
+
+    protected List<ParticipantOwnEventsDTO> eventListToParticipantOwnEventsDTOList(List<Event> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<ParticipantOwnEventsDTO> list1 = new ArrayList<ParticipantOwnEventsDTO>( list.size() );
+        for ( Event event : list ) {
+            list1.add( eventToParticipantOwnEventsDTO( event ) );
         }
 
         return list1;
